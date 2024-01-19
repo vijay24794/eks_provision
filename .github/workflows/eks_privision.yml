@@ -26,4 +26,4 @@ jobs:
 
             - name: Create EKS Cluster
               run: |
-                  aws eks --region us-east-1 create-cluster --name my-cluster --nodes 3 --kubernetes-version 1.27--role-arn arn:aws:iam::389578708565:user/eksadmin
+                  aws eks --region us-east-1 create-cluster --name my-cluster --nodes 3 --kubernetes-version 1.27 --role-arn arn:aws:iam::389578708565:user/eksadmin
