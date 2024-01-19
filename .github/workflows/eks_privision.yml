@@ -32,4 +32,4 @@ jobs:
 
             - name: Create EKS Cluster
               run: |
-                  sudo eksctl create cluster --name k8s-cluster --region us-east-1 --nodegroup-name k8s-nodegroup --node-type t3.medium --nodes 2 --managed
+                  sudo eksctl create cluster --name k8s-cluster --region us-east-1 --nodegroup-name k8s-nodegroup --node-type t3.medium --nodes 2 --managed --role-arn arn:aws:iam::389578708565:user/eksadmin
