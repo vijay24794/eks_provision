@@ -1,18 +1,12 @@
 name: Provision EKS Cluster
 
 on: [push]
-env:
-  ECR_REPOSITORY: dso
-  EKS_CLUSTER_NAME: k8s
 jobs:
     build:
         runs-on: ubuntu-latest
 
         steps:
-            - name: Set short git commit SHA
-              id: commit
-              uses: prompt/actions-commit-hash@v2
-              
+                      
             - name: Checkout code
               uses: actions/checkout@v2.3.4
 
@@ -35,18 +29,15 @@ jobs:
 
             - name: Build, tag, and push image to Amazon ECR
               run: |
-                docker build -t dso .
+                docker build -t dso -f Dockerfile .
                 docker tag dso:latest public.ecr.aws/p0x4e8u7/dso:latest
                 docker push public.ecr.aws/p0x4e8u7/dso:latest
 
             - name: Update kube config
               run: |
-                  aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region us-east-1
+                  aws eks update-kubeconfig --name k8s --region us-east-1
 
             - name: Deploy to EKS
-              env:
-                ECR_REGISTRY: public.ecr.aws/p0x4e8u7/dso        
-                IMAGE_TAG: latest
               run: |
                   kubectl apply -f deployment.yaml
                
